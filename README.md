@@ -36,7 +36,7 @@ Set `markdown: true` and the Actor returns the page as **clean Markdown** instea
 
 * 🎯 **Main content only by default** - navigation, the site header, footer and sidebars are dropped (`main_content_only: true`). Set `main_content_only: false` to convert the whole page.
 * 🔁 Works with `proxy_country` and `steps`, and is charged like an HTML result.
-* `markdown` cannot be combined with `parsed_data` or `list_elements`, which return their own JSON formats.
+* `markdown` cannot be combined with `parsed_data` or `list_elements`, which return their own JSON formats (and `parsed_data` and `list_elements` cannot be combined with each other either).
 
 ```json
 {

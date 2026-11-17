@@ -59,10 +59,15 @@ async def main():
         if not url:
             raise Exception("Missing 'url' input")
 
+        # The API refuses these combinations (422): each one returns its own format.
+        error = None
         if markdown and (parsed_data or list_elements):
-            # The API refuses these combinations (422): each one returns its own format.
             error = ("Markdown cannot be combined with parsed data or list elements: each returns "
                      "its own format. Turn one of them off.")
+        elif list_elements and parsed_data:
+            error = ("List elements cannot be combined with parsed data: each returns its own "
+                     "format. Turn one of them off.")
+        if error:
             await Actor.set_status_message(error, is_terminal=True)
             raise ValueError(error)
 
