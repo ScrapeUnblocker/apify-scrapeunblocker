@@ -131,6 +131,37 @@ Returns:
 
 ---
 
+## 📡 NEW: Capture the page's own API calls (`capture_xhr`)
+
+Many sites render from a JSON API the page calls itself, and that API often refuses direct requests (the page signs every call). Set `capture_xhr` to a fragment of that API's URL (find it in your browser's DevTools, Network tab, Fetch/XHR) and the Actor returns every XHR/fetch response whose URL contains it, next to the HTML. Add `steps` to make the page fire the call (a search, "load more").
+
+```json
+{
+  "url": "https://quotes.toscrape.com/scroll",
+  "capture_xhr": "/api/quotes",
+  "steps": [{ "action": "scroll", "value": "bottom" }, { "action": "wait", "value": 1500 }]
+}
+```
+
+Returns one dataset item:
+
+```json
+{
+  "url": "https://quotes.toscrape.com/scroll",
+  "xhr": [
+    { "url": "https://quotes.toscrape.com/api/quotes?page=1", "method": "GET", "status": 200,
+      "content_type": "application/json", "body": "{\"has_next\": true, \"page\": 1, \"quotes\": [...]}" }
+  ],
+  "xhr_truncated": false,
+  "html": "<!DOCTYPE html>..."
+}
+```
+
+* Up to 20 responses; `xhr_truncated` is `true` when more matched.
+* `capture_xhr` cannot be combined with `markdown`, `parsed_data` or `list_elements`.
+
+---
+
 ## 📥 Input
 
 Raw HTML (default):

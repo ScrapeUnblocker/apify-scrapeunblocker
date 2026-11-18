@@ -41,6 +41,12 @@
       "description": "An ordered list of browser actions to run after the page loads: wait_for, wait_for_text, wait, click, type, select, press_key, scroll. Example: [{\"action\":\"type\",\"selector\":\"#q\",\"value\":\"bmw\"},{\"action\":\"press_key\",\"value\":\"Enter\"},{\"action\":\"wait_for\",\"selector\":\".results\"}]. Runs once (non-idempotent); a failed step returns which step failed plus the page HTML.",
       "editor": "json"
     },
+    "capture_xhr": {
+      "title": "Capture the page's API calls (XHR)",
+      "type": "string",
+      "description": "A fragment of an API URL the page calls itself, e.g. /api/search. The page is rendered in a real browser and every XHR/fetch response whose URL contains it is returned with the page: xhr (url, method, status, content_type, body), xhr_truncated and html. Up to 20 responses. Useful when a site renders from a JSON API that refuses direct requests. Combine with Browser steps to make the page fire the call. Cannot be combined with Markdown, parsed data or list elements.",
+      "editor": "textfield"
+    },
     "proxy_country": {
       "title": "Proxy country",
       "type": "string",

@@ -15,6 +15,26 @@
         "description": "Full page HTML returned for the URL (present when parsed_data is false, or when parsed_data found nothing to extract)",
         "example": "<html>...</html>"
       },
+      "xhr": {
+        "type": "array",
+        "title": "Captured API calls",
+        "description": "The page's own XHR/fetch responses whose URL contains capture_xhr, in the order the page received them: url, method, status, content_type, body (present when capture_xhr is set)",
+        "example": [
+          {
+            "url": "https://quotes.toscrape.com/api/quotes?page=1",
+            "method": "GET",
+            "status": 200,
+            "content_type": "application/json",
+            "body": "{\"has_next\": true, \"page\": 1, \"quotes\": []}"
+          }
+        ]
+      },
+      "xhr_truncated": {
+        "type": "boolean",
+        "title": "Captured calls truncated",
+        "description": "true when more calls matched than were returned (present when capture_xhr is set)",
+        "example": false
+      },
       "markdown": {
         "type": "string",
         "title": "Markdown",

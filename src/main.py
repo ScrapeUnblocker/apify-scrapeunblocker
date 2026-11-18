@@ -55,13 +55,17 @@ async def main():
         main_content_only = bool(input_data.get("main_content_only", True))
         steps = input_data.get("steps") or None
         proxy_country = (input_data.get("proxy_country") or "").strip()
+        capture_xhr = (input_data.get("capture_xhr") or "").strip()
 
         if not url:
             raise Exception("Missing 'url' input")
 
         # The API refuses these combinations (422): each one returns its own format.
         error = None
-        if markdown and (parsed_data or list_elements):
+        if capture_xhr and (markdown or parsed_data or list_elements):
+            error = ("Capturing the page's API calls cannot be combined with Markdown, parsed data "
+                     "or list elements: it returns its own format. Turn the other one off.")
+        elif markdown and (parsed_data or list_elements):
             error = ("Markdown cannot be combined with parsed data or list elements: each returns "
                      "its own format. Turn one of them off.")
         elif list_elements and parsed_data:
@@ -91,6 +95,9 @@ async def main():
         if proxy_country:
             # Two-letter ISO country code for the exit proxy (e.g. "US", "DE").
             params["proxy_country"] = proxy_country
+        if capture_xhr:
+            # The page's own XHR/fetch responses whose URL contains this fragment.
+            params["capture_xhr"] = capture_xhr
 
         # parsed_data mode may need extra polls for the 202 "processing" state;
         # HTML and Markdown modes keep the original single-immediate-retry behaviour.
@@ -172,7 +179,20 @@ async def main():
             body = response.text[:500] if response is not None else ""
             raise Exception(f"❌ ScrapeUnblocker failed after {max_attempts} attempts. Final status code: {status}. Response: {body}")
 
-        if list_elements:
+        if capture_xhr:
+            # API returns { "html", "xhr": [...], "xhr_truncated", "proxy" }.
+            payload = response.json()
+            item = {
+                "url": url,
+                "xhr": payload.get("xhr") or [],
+                "xhr_truncated": bool(payload.get("xhr_truncated")),
+                "html": payload.get("html"),
+            }
+            await Actor.set_value("OUTPUT", json.dumps(item, ensure_ascii=False),
+                                  content_type="application/json")
+            await Actor.push_data(item)
+            print(f"✅ Captured {len(item['xhr'])} API call(s) matching {capture_xhr!r}")
+        elif list_elements:
             # API returns { "url", "count", "elements": [...] }.
             payload = response.json()
             await Actor.set_value("OUTPUT", json.dumps(payload, ensure_ascii=False), content_type="application/json")
