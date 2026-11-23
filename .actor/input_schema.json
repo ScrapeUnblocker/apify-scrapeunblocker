@@ -57,15 +57,17 @@
         "",
         "AT", "AU", "BE", "BG", "BR", "CA", "CH", "CN", "CZ", "DE",
         "DK", "EE", "ES", "FI", "FR", "GB", "GR", "HK", "HR", "IE",
-        "IL", "IT", "JP", "KR", "LT", "LU", "LV", "MD", "NL", "NO",
-        "NZ", "PL", "RO", "RS", "SE", "SG", "TH", "TR", "TW", "US"
+        "IL", "IT", "JP", "KR", "LT", "LU", "MD", "NL", "NO", "NZ",
+        "PL", "PT", "RO", "RS", "SE", "SG", "SI", "TH", "TR", "TW",
+        "US"
       ],
       "enumTitles": [
         "Random (European)",
         "Austria (AT)", "Australia (AU)", "Belgium (BE)", "Bulgaria (BG)", "Brazil (BR)", "Canada (CA)", "Switzerland (CH)", "China (CN)", "Czechia (CZ)", "Germany (DE)",
         "Denmark (DK)", "Estonia (EE)", "Spain (ES)", "Finland (FI)", "France (FR)", "United Kingdom (GB)", "Greece (GR)", "Hong Kong (HK)", "Croatia (HR)", "Ireland (IE)",
-        "Israel (IL)", "Italy (IT)", "Japan (JP)", "South Korea (KR)", "Lithuania (LT)", "Luxembourg (LU)", "Latvia (LV)", "Moldova (MD)", "Netherlands (NL)", "Norway (NO)",
-        "New Zealand (NZ)", "Poland (PL)", "Romania (RO)", "Serbia (RS)", "Sweden (SE)", "Singapore (SG)", "Thailand (TH)", "Turkey (TR)", "Taiwan (TW)", "United States (US)"
+        "Israel (IL)", "Italy (IT)", "Japan (JP)", "South Korea (KR)", "Lithuania (LT)", "Luxembourg (LU)", "Moldova (MD)", "Netherlands (NL)", "Norway (NO)", "New Zealand (NZ)",
+        "Poland (PL)", "Portugal (PT)", "Romania (RO)", "Serbia (RS)", "Sweden (SE)", "Singapore (SG)", "Slovenia (SI)", "Thailand (TH)", "Turkey (TR)", "Taiwan (TW)",
+        "United States (US)"
       ]
     }
   },
